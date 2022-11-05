@@ -1,6 +1,7 @@
 use std::env;
 
 pub mod euler;
+pub mod math;
 
 fn main() {
 
@@ -14,6 +15,7 @@ fn main() {
         2 => euler::task0002::execute(input),
         3 => euler::task0003::execute(input),
         4 => euler::task0004::execute(input),
+        5 => euler::task0005::execute(input),
         _ => println!("Unknown task"),
     }
 }
