@@ -18,6 +18,7 @@ fn main() {
         5 => euler::task0005::execute(input),
         6 => euler::task0006::execute(input),
         7 => euler::task0007::execute(input),
+        8 => euler::task0008::execute(input),
         _ => println!("Unknown task"),
     }
 }
