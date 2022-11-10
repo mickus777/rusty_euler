@@ -7,3 +7,4 @@ pub mod task0006;
 pub mod task0007;
 pub mod task0008;
 pub mod task0009;
+pub mod task0010;
