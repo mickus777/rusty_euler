@@ -45,16 +45,20 @@ impl PrimeSieve {
         self.next_possible_prime = next_next_possible_prime;
     }
 
-    pub fn factorize(&mut self, mut value: u64) -> Vec<u64> {
+    pub fn factorize(&mut self, value: u64) -> Vec<u64> {
         let mut factors = Vec::new();
 
-        while value > 1 {
-            self.expand();
+        let mut remainder = value;
+
+        while remainder > 1 {
+            if remainder >= self.next_possible_prime {
+                self.expand();
+            }
 
             for prime in self.prime_multiples.iter() {
-                while value % (*prime).prime == 0 {
+                while remainder % (*prime).prime == 0 {
                     factors.push((*prime).prime);
-                    value /= (*prime).prime;
+                    remainder /= (*prime).prime;
                 }
             }
         }
