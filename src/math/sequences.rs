@@ -1,3 +1,7 @@
+use std::cmp;
+use std::vec::Vec;
+
+use bit_vec::BitVec;
 
 pub struct TriangleNumbers {
     current_sum: u64,
@@ -13,5 +17,85 @@ impl TriangleNumbers {
         self.last_term += 1;
         self.current_sum += self.last_term;
         self.current_sum
+    }
+}
+
+struct PrimeNumberItem {
+    prime: u64,
+    next_multiple: u64
+}
+
+pub struct PrimeNumbers {
+    next_possible_prime: u64,
+    prime_multiples: Vec<PrimeNumberItem>,
+    last_returned: Option<usize>
+}
+
+impl PrimeNumbers {
+    pub fn new() -> PrimeNumbers {
+        PrimeNumbers { next_possible_prime: 2, prime_multiples: Vec::new(), last_returned: Option::None }
+    }
+
+    pub fn next(&mut self) -> u64 {
+        let mut index = 0;
+        if let Some(last_index) = self.last_returned {
+            index = last_index + 1;
+        }
+
+        if self.prime_multiples.len() <= index {
+            self.expand();
+        }
+
+        self.last_returned = Some(index);
+
+        self.prime_multiples[index].prime
+    }
+
+    pub fn factorize(&mut self, value: u64) -> Vec<u64> {
+        let mut factors = Vec::new();
+
+        let mut remainder = value;
+
+        while remainder > 1 {
+            if remainder >= self.next_possible_prime {
+                self.expand();
+            }
+
+            for prime in self.prime_multiples.iter() {
+                while remainder % (*prime).prime == 0 {
+                    factors.push((*prime).prime);
+                    remainder /= (*prime).prime;
+                }
+            }
+        }
+
+        factors
+    }
+
+    fn expand(&mut self) {
+        let sieve_size: usize = cmp::min(10000000, self.next_possible_prime as usize);
+
+        let next_next_possible_prime = self.next_possible_prime + (sieve_size as u64);
+
+        let mut possible_primes = BitVec::from_elem(sieve_size as usize, false);
+
+        // Tick off all known primes
+        for prime in self.prime_multiples.iter_mut() {
+            while (*prime).next_multiple < next_next_possible_prime {
+                let index = (*prime).next_multiple - self.next_possible_prime;
+                possible_primes.set(index as usize, true);
+                (*prime).next_multiple += (*prime).prime;
+            }
+        }
+
+        // Add all nonticked as new primes
+        for index in 0..sieve_size {
+            if let Some(false) = possible_primes.get(index as usize) {
+                let prime = self.next_possible_prime + (index as u64);
+                self.prime_multiples.push(PrimeNumberItem { prime, next_multiple: prime * prime });
+            }
+        }
+
+        self.next_possible_prime = next_next_possible_prime;
     }
 }

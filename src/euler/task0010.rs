@@ -1,21 +1,18 @@
-use crate::math::prime_sieve::PrimeSieve;
+use crate::math::sequences::PrimeNumbers;
 
 pub fn execute(input: &String) {
     let ceiling: u64 = input.parse().unwrap();
 
-    let mut sieve = PrimeSieve::new();
-
-    while sieve.next_possible_prime <= ceiling {
-        sieve.expand();
-    }
+    let mut primes = PrimeNumbers::new();
 
     let mut sum = 0;
 
-    for prime in sieve.prime_multiples {
-        if prime.prime > ceiling {
+    loop {
+        let prime = primes.next();
+        if prime > ceiling {
             break;
         }
-        sum += prime.prime;
+        sum += prime;
     }
 
     println!("{}", sum);

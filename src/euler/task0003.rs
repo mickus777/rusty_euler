@@ -1,13 +1,11 @@
-use crate::math::prime_sieve::PrimeSieve;
+use crate::math::sequences::PrimeNumbers;
 
 pub fn execute(input: &String) {
     let number: u64 = input.parse().unwrap();
 
-    let mut sieve = PrimeSieve::new();
+    let mut primes = PrimeNumbers::new();
 
-    let factors = PrimeSieve::factorize(&mut sieve, number);
-
-    for factor in factors {
+    for factor in primes.factorize(number) {
         println!("{}", factor);
     }
 }

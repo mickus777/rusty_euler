@@ -1,4 +1,3 @@
-
 pub fn execute(input: &String) {
     let count: u64 = input.parse().unwrap();
 

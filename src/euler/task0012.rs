@@ -1,18 +1,17 @@
-use crate::math::sequences::TriangleNumbers;
-use crate::math::prime_sieve::PrimeSieve;
+use crate::math::sequences::{PrimeNumbers, TriangleNumbers};
 
 use std::collections::HashMap;
 
 pub fn execute(input: &String) {
     let count: u64 = input.parse().unwrap();
 
-    let mut sieve = PrimeSieve::new();
+    let mut primes = PrimeNumbers::new();
 
     let mut sequence = TriangleNumbers::new();
     loop {
         let number = sequence.next();
 
-        let factors = sieve.factorize(number);
+        let factors = primes.factorize(number);
 
         let mut factor_counts : HashMap<u64, u64> = HashMap::new();
 
