@@ -13,3 +13,4 @@ pub mod task0012;
 pub mod task0013;
 pub mod task0014;
 pub mod task0015;
+pub mod task0016;
