@@ -1,28 +1,11 @@
 use std::collections::HashMap;
-use std::vec::Vec;
 
-use num_traits::ToPrimitive;
-
-fn proper_divisors(value: u64) -> Vec<u64> {
-    let mut divisors = Vec::new();
-    divisors.push(1);
-
-    let highest_possible_divisor = f32::sqrt(value.to_f32().unwrap()).to_u64().unwrap();
-
-    for divisor in 2..(highest_possible_divisor + 1) {
-        if value % divisor == 0 {
-            divisors.push(divisor);
-            divisors.push(value / divisor);
-        }
-    }
-
-    divisors
-}
+use crate::math::utils;
 
 fn has_amicable_pairing(value: u64) -> Option<u64> {
-    let first_divisors = proper_divisors(value);
+    let first_divisors = utils::proper_divisors(value);
     let possible_pairing = first_divisors.iter().sum();
-    let second_divisors = proper_divisors(possible_pairing);
+    let second_divisors = utils::proper_divisors(possible_pairing);
     if value == second_divisors.iter().sum() {
         Some(possible_pairing)
     } else {
