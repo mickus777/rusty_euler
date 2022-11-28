@@ -2,6 +2,9 @@ use std::cmp;
 use std::vec::Vec;
 
 use bit_vec::BitVec;
+use num_bigint::BigUint;
+use num_traits::One;
+use num_traits::Zero;
 
 pub struct TriangleNumbers {
     current_sum: u64,
@@ -17,6 +20,30 @@ impl TriangleNumbers {
         self.last_term += 1;
         self.current_sum += self.last_term;
         self.current_sum
+    }
+}
+
+pub struct FibonacciNumbers {
+    first_number: BigUint,
+    second_number: BigUint
+}
+
+impl FibonacciNumbers {
+    pub fn new() -> FibonacciNumbers {
+        FibonacciNumbers { first_number: Zero::zero(), second_number: Zero::zero() }
+    }
+
+    pub fn next(&mut self) -> &BigUint {
+        if self.second_number == Zero::zero() {
+            self.second_number = One::one();
+        } else if self.first_number == Zero::zero() {
+            self.first_number = One::one();
+        } else {
+            let next_number = self.first_number.clone() + self.second_number.clone();
+            self.first_number = self.second_number.clone();
+            self.second_number = next_number;
+        }
+        &self.second_number
     }
 }
 
