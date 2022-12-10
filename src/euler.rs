@@ -26,3 +26,4 @@ pub mod task0025;
 pub mod task0026;
 pub mod task0027;
 pub mod task0028;
+pub mod task0029;
