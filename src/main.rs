@@ -8,7 +8,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let task_no: i32 = args[1].parse().unwrap();
-    let input = &args[2];
+    let mut input = &"0".to_string();
+    if args.len() > 2 {
+        input = &args[2];
+    }
 
     match task_no {
         1 => euler::task0001::execute(input),
@@ -46,6 +49,7 @@ fn main() {
         33 => euler::task0033::execute(input),
         34 => euler::task0034::execute(input),
         35 => euler::task0035::execute(input),
+        36 => euler::task0036::execute(input),
         _ => println!("Unknown task"),
     }
 }
