@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::vec::Vec;
 
 pub fn proper_divisors(value: u64) -> Vec<u64> {
@@ -43,6 +44,35 @@ fn is_palindromic_list(digits : &[u64]) -> bool {
 pub fn is_palindromic(value: u64) -> bool {
     let digits = listify_number(value);
     is_palindromic_list(&digits[..])
+}
+
+fn check_uniqe_digit(mut number : u64, digits : &mut HashSet<u64>) -> bool {
+    while number > 0 {
+        let digit = number % 10;
+        if digit == 0 {
+            return false;
+        }
+        number /= 10;
+        if digits.contains(&digit) {
+            return false;
+        } else {
+            digits.insert(digit);
+        }
+    }
+
+    true
+}
+
+pub fn is_pandigital(numbers : Vec<u64>) -> bool {
+    let mut digits : HashSet<u64> = HashSet::new();
+
+    for number in numbers.iter() {
+        if !check_uniqe_digit(*number, &mut digits) {
+            return false;
+        }
+    }
+
+    digits.len() == 9
 }
 
 #[cfg(test)]

@@ -1,35 +1,6 @@
+use crate::math::utils::is_pandigital;
+
 use std::collections::HashSet;
-
-fn check_uniqe_digit(mut number : u64, digits : &mut HashSet<u64>) -> bool {
-    while number > 0 {
-        let digit = number % 10;
-        if digit == 0 {
-            return false;
-        }
-        number /= 10;
-        if digits.contains(&digit) {
-            return false;
-        } else {
-            digits.insert(digit);
-        }
-    }
-
-    true
-}
-
-fn is_pandigital_product(f1 : u64, f2 : u64, product : u64) -> bool {
-    let mut digits : HashSet<u64> = HashSet::new();
-
-    if !check_uniqe_digit(f1, &mut digits) {
-        false
-    } else if !check_uniqe_digit(f2, &mut digits) {
-        false
-    } else if !check_uniqe_digit(product, &mut digits) {
-        false
-    } else {
-        digits.len() == 9
-    }
-}
 
 pub fn execute(input: &String) {
     let _ceiling: i32 = input.parse().unwrap();
@@ -47,7 +18,7 @@ pub fn execute(input: &String) {
             }
             f2 = f1 + 1;
         } else {
-            if is_pandigital_product(f1, f2, product) {
+            if is_pandigital(vec! { f1, f2, product }) {
                 products.insert(product);
             }
             f2 += 1;
