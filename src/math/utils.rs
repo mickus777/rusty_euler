@@ -63,7 +63,7 @@ fn check_uniqe_digit(mut number : u64, digits : &mut HashSet<u64>) -> bool {
     true
 }
 
-pub fn is_pandigital(numbers : Vec<u64>) -> bool {
+pub fn is_pandigital(numbers : &Vec<u64>) -> bool {
     let mut digits : HashSet<u64> = HashSet::new();
 
     for number in numbers.iter() {

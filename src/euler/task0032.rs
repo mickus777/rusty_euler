@@ -18,7 +18,7 @@ pub fn execute(input: &String) {
             }
             f2 = f1 + 1;
         } else {
-            if is_pandigital(vec! { f1, f2, product }) {
+            if is_pandigital(&vec! { f1, f2, product }) {
                 products.insert(product);
             }
             f2 += 1;
