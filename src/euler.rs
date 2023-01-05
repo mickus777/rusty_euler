@@ -37,3 +37,4 @@ pub mod task0036;
 pub mod task0037;
 pub mod task0038;
 pub mod task0039;
+pub mod task0040;
