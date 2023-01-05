@@ -10,14 +10,11 @@ pub fn execute(input: &String) {
 
     for p in 1..ceiling {
         let mut count = 0;
-        for a in 1..p {
-            for b in a..p {
+        for a in 1..(p / 3) {
+            for b in a..((p - a) / 2) {
                 let c = p - a - b;
-                if c > 0 {
-                    if a * a + b * b == c * c {
-                        println!("{} : {} {} {}", p, a, b, c);
-                        count += 1;
-                    }
+                if a * a + b * b == c * c {
+                    count += 1;
                 }
             }
         }
