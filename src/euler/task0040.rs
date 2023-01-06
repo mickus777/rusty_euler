@@ -1,4 +1,4 @@
-use std::collections::{linked_list, LinkedList};
+use std::collections::LinkedList;
 
 fn split(mut value : u32) -> LinkedList<u32> {
     let mut list = LinkedList::new();

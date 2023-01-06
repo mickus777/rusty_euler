@@ -72,7 +72,13 @@ pub fn is_pandigital(numbers : &Vec<u64>) -> bool {
         }
     }
 
-    digits.len() == 9
+    for digit in 1..(digits.len() + 1) {
+        if !digits.contains(&(digit as u64)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 #[cfg(test)]
