@@ -47,6 +47,52 @@ impl FibonacciNumbers {
     }
 }
 
+pub struct Permutations<T> {
+    pointers : Vec<usize>,
+    position : usize,
+    items : Vec<T>
+}
+
+impl<T> Permutations<T> {
+    pub fn new(items : Vec<T>) -> Permutations<T> {
+        let mut pointers = Vec::new();
+        for _i in 0..items.len() {
+            pointers.push(0);
+        }
+        Permutations { pointers: pointers, position: 0, items: items }
+    }
+
+    pub fn next(&mut self) -> Option<&Vec<T>> {
+        if self.position == 0 {
+            self.position = 1;
+            return Option::Some(&self.items);            
+        }
+
+        loop {
+            if self.position >= self.pointers.len() {
+                return Option::None;
+            }
+    
+            if self.pointers[self.position] < self.position {
+                if self.position % 2 == 0 {
+                    self.items.swap(0, self.position);
+                } else {
+                    self.items.swap(self.pointers[self.position], self.position);
+                }
+        
+                self.pointers[self.position] += 1;
+                self.position = 1;
+                break;
+            } else {
+                self.pointers[self.position] = 0;
+                self.position += 1;
+            }
+        }
+
+        Option::Some(&self.items)
+    }
+}
+
 struct PrimeNumberItem {
     prime: u64,
     next_multiple: u64
